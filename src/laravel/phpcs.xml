@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruleset name="MyProject/PSR12">
+    <description>My Project Coding Standard</description>
+
+    <rule ref="PSR12" />
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>tests/</exclude-pattern>
+    </rule>
+
+    <!-- オプション p:進捗表示  s:エラー表示時にルールを表示 -->
+    <arg value="ps" />
+
+    <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>.phpstorm.meta.php</exclude-pattern>
+    <exclude-pattern>_ide_helper.php</exclude-pattern>
+    <exclude-pattern>_ide_helper_models.php</exclude-pattern>
+    <exclude-pattern>public/index.php</exclude-pattern>
+
+    <exclude-pattern>vendor/</exclude-pattern>
+    <exclude-pattern>bootstrap/</exclude-pattern>
+    <exclude-pattern>storage/</exclude-pattern>
+</ruleset>
