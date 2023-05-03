@@ -49,10 +49,10 @@
             "@php artisan key:generate --ansi"
         ],
         "lint": [
-            "phpcs -d memory_limit=2G --standard=phpcs.xml -p ."
+            "phpcs -d memory_limit=2G --standard=phpcs.xml"
         ],
         "format": [
-            "phpcbf -d memory_limit=2G --standard=phpcs.xml -p ."
+            "phpcbf -d memory_limit=2G --standard=phpcs.xml"
         ],
         "stan": [
             "./vendor/bin/phpstan analyse --memory-limit=2G"
