@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -31,6 +33,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
+        // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
