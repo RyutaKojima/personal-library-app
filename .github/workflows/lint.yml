@@ -1,0 +1,76 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-20.04 ]
+        php-versions: [ '8.2' ]
+    defaults:
+      run:
+        working-directory: ./src/laravel
+    env:
+      EXTENSIONS: mbstring, dom, fileinfo, mysql
+      KEY: cache-v1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup cache environment
+        id: cache-env
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: ${{ env.EXTENSIONS }}
+          key: ${{ env.KEY }}
+
+      - name: Cache extensions
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.cache-env.outputs.dir }}
+          key: ${{ steps.cache-env.outputs.key }}
+          restore-keys: ${{ steps.cache-env.outputs.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: ${{ env.extensions }}
+
+      - name: Setup problem matchers for PHP
+        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        id: composer-cache-hit
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+
+      - name: Prepare the application
+        run: |
+          cp .env.ci .env
+          php artisan key:generate
+
+      - name: Clear Config
+        run: php artisan config:clear
+
+      - name: Lint
+        run: composer lint
