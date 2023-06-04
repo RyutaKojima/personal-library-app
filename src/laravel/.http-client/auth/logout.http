@@ -1,0 +1,7 @@
+### Send POST request with json body
+POST http://localhost/api/auth/logout
+Content-Type: application/json
+Accept: application/json
+
+{
+}

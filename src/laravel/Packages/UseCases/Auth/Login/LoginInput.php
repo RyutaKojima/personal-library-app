@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Packages\UseCases\User\Create;
+namespace Packages\UseCases\Auth\Login;
 
 use Packages\Domains\User\Password;
 
-final class CreateUserInput
+final class LoginInput
 {
     public function __construct(
         public readonly string $accountId,
         public readonly Password $password,
-        public readonly string $name,
     ) {
     }
 }

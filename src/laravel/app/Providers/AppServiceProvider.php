@@ -31,10 +31,20 @@ class AppServiceProvider extends ServiceProvider
     private function registerForOfficial(): void
     {
         $this->app->bind(
+            \Packages\UseCases\Auth\Login\LoginUseCaseInterface::class,
+            \Packages\Interactors\Official\Auth\Login\LoginUseCase::class,
+        );
+
+        $this->app->bind(
             \Packages\UseCases\User\Create\CreateUserUseCaseInterface::class,
             \Packages\Interactors\Official\Auth\User\CreateUserUseCase::class,
         );
 
+
+        $this->app->bind(
+            abstract: \Packages\Domains\Auth\AuthTokenRepositoryInterface::class,
+            concrete: \App\Repositories\Auth\AuthTokenRepository::class,
+        );
 
         $this->app->bind(
             abstract: \Packages\Domains\User\UserRepositoryInterface::class,

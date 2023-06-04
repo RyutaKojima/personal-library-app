@@ -30,7 +30,6 @@ final class CreateUserUseCase implements CreateUserUseCaseInterface
         return new CreateUserOutput(
             id: $id,
             accountId: $user->accountId,
-            password: $user->password,
             name: $user->name,
         );
     }
