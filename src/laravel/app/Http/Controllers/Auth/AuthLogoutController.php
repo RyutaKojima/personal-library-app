@@ -5,15 +5,36 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Auth\AuthLogoutRequest;
+use App\Http\Resources\Auth\AuthLogoutResource;
+use Packages\Domains\Auth\UnAuthenticateException;
+use Packages\UseCases\Auth\Authenticate\AuthenticateInput;
+use Packages\UseCases\Auth\Authenticate\AuthenticateUseCaseInterface;
+use Packages\UseCases\Auth\Logout\LogoutInput;
+use Packages\UseCases\Auth\Logout\LogoutUseCaseInterface;
 
 final class AuthLogoutController extends Controller
 {
-//    public function __construct()
-//    {
-//    }
+    public function __construct(
+        private readonly AuthenticateUseCaseInterface $authenticateUseCase,
+        private readonly LogoutUseCaseInterface $logoutUseCase,
+    ) {
+    }
 
-    public function __invoke(Request $request): void
+    /**
+     * @throws UnAuthenticateException
+     */
+    public function __invoke(AuthLogoutRequest $request): AuthLogoutResource
     {
+        $token = (string)$request->header('Authorization');
+        $authOutput = $this->authenticateUseCase->handle(
+            new AuthenticateInput($token),
+        );
+
+        $input = new LogoutInput($authOutput->user);
+
+        $this->logoutUseCase->handle($input);
+
+        return AuthLogoutResource::make([]);
     }
 }

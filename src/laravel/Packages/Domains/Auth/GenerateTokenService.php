@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Packages\Domains\Auth;
 
 use Packages\Domains\User\User;

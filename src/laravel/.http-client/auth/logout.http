@@ -2,6 +2,7 @@
 POST http://localhost/api/auth/logout
 Content-Type: application/json
 Accept: application/json
+Authorization: 018461cc57e964e4a81e9edb07026990a4e379422bc9ca9e23d8609b74d7df80d254950f47949bcab966d4c1950b3915ee4638a740902e7a09db3330098962a9
 
 {
 }

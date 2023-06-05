@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Packages\Interactors\Official\Auth\Login;
 
 use Packages\Domains\Auth\AuthTokenRepositoryInterface;
@@ -28,6 +27,7 @@ final class LoginUseCase implements LoginUseCaseInterface
     public function handle(LoginInput $input): LoginOutput
     {
         $user = $this->userRepository->findByAccountId($input->accountId);
+
         $isVerified = $user->password->verify($input->password);
 
         $token = $isVerified
