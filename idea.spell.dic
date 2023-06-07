@@ -1,7 +1,26 @@
 
 # General words...
+dont
+EHLO
 
 # Laravel words...
+Laravel
+fbclid
+sasl
+sslmode
+papertrail
+phpredis
+beanstalkd
+tokenable
 
 # Packages words...
+phpcs
 Squiz
+mailgun
+tailwindcss
+
+# My Project words...
+Interactors
+
+# Random words...
+Npkj

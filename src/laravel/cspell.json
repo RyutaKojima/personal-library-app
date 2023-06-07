@@ -1,0 +1,48 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "dictionaryDefinitions": [
+    {
+      "name": "project-words",
+      "path": "../../idea.spell.dic",
+      "addWords": true
+    }
+  ],
+  "words": [
+  ],
+  "dictionaries": [
+    "project-words",
+    "en_US",
+    "companies",
+    "softwareTerms",
+    "misc",
+    "php",
+    "sql",
+    "aws",
+    "typescript",
+    "node",
+    "html",
+    "css",
+    "fonts",
+    "filetypes",
+    "npm"
+  ],
+  "ignorePaths": [
+    "**/storage/**",
+    "**/vendor/**",
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/.idea/**",
+    "**/.vscode/**",
+    "**/.next/**",
+    "**/package.json",
+    "**/yarn-error.log",
+    "**/yarn.lock",
+    "bootstrap/cache/**",
+    "phpunit-xml-gen.php",
+    ".phpstorm.meta.php",
+    "_ide_helper.php",
+    "_ide_helper_models.php",
+    "load_font.php"
+  ]
+}

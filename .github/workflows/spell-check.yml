@@ -1,0 +1,36 @@
+name: SpellCheck
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - src/laravel/**
+  workflow_dispatch:
+
+jobs:
+  spell-check:
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-20.04 ]
+
+    defaults:
+      run:
+        working-directory: ./src/laravel
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: install dependencies
+        run: npm ci
+
+      - name: Run spell check
+        run: npm run spell-check
