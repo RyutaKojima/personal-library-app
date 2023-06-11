@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace {{ namespace }};
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Packages\Domains\User\User;
 
 /**
- * @mixin {{Models}}
+ * @mixin User
  */
-final class {{ class }} extends JsonResource
+final class GetUserMeResource extends JsonResource
 {
     /**
      * @param Request $request
@@ -19,6 +20,9 @@ final class {{ class }} extends JsonResource
     // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'accountId' => $this->accountId,
+            'name' => $this->name,
+        ];
     }
 }

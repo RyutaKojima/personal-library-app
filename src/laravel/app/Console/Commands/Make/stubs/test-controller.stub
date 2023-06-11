@@ -2,13 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Controller\Auth;
+namespace {{ namespace }};
 
+use Packages\Exceptions\DataNotFoundException;
 use Tests\FeatureUtil\Authenticate;
 use Tests\TestCase;
 
-final class AuthLogoutControllerTest extends TestCase
+final class {{ class }} extends TestCase
 {
+    /**
+     * @throws DataNotFoundException
+     */
     public function setUp(): void
     {
         parent::setUp();
@@ -19,19 +23,19 @@ final class AuthLogoutControllerTest extends TestCase
 
     public function testHttpSuccess(): void
     {
-        $response = $this->postJson(
-            '/api/auth/logout',
-            [
-            ],
-            [
-                'Authorization' => "Bearer {$this->token}",
-            ]
-        );
+        $response = $this
+            ->getJson(
+                '/api/xxx',
+                [
+                    'Authorization' => "Bearer {$this->token}",
+                ]
+            );
 
         $response
             ->assertStatus(200)
             ->assertExactJson([
-                'data' => [],
+                'data' => [
+                ],
             ]);
     }
 }

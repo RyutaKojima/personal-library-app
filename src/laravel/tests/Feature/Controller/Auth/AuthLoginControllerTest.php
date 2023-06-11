@@ -4,19 +4,37 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controller\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Tests\FeatureUtil\Authenticate;
 use Tests\TestCase;
 
 final class AuthLoginControllerTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        Authenticate::makeDummyUser($this->app);
+    }
+
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+    public function testHttpSuccess(): void
     {
-        $response = $this->get('/');
+        $response = $this->postJson(
+            '/api/auth/login',
+            [
+                'account_id' => Authenticate::TEST_ACCOUNT_ID,
+                'password' => Authenticate::TEST_PASSWORD,
+            ]
+        );
 
-        $response->assertStatus(200);
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'token',
+                ]
+            ]);
     }
 }

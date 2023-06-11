@@ -27,7 +27,7 @@ jobs:
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: db
+          MYSQL_DATABASE: testing
         options: >-
           --health-cmd "mysqladmin ping"
           --health-interval 10s
@@ -84,20 +84,14 @@ jobs:
 
       - name: Prepare the application
         run: |
-          cp .env.ci .env
+          cp -f .env.ci .env
+          cp -f .env.ci .env.testing
           php artisan key:generate
-
-      - name: Clear Config
-        run: php artisan config:clear
-
-      - name: Migration and seed
-        run: php artisan migrate:fresh --seed -vvv
-        env:
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
       - name: Test
         run: |
-          cp .env .env.test
+          cp -f .env.ci .env
+          cp -f .env.ci .env.testing
           composer test
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
