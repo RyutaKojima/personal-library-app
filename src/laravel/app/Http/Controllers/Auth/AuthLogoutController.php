@@ -26,7 +26,7 @@ final class AuthLogoutController extends Controller
      */
     public function __invoke(AuthLogoutRequest $request): AuthLogoutResource
     {
-        $token = (string)$request->header('Authorization');
+        $token = (string)$request->bearerToken();
         $authOutput = $this->authenticateUseCase->handle(
             new AuthenticateInput($token),
         );

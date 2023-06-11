@@ -1,5 +1,5 @@
 ### Send POST request with json body
-POST http://localhost/api/auth/login
+POST {{protocol}}{{host}}/api/auth/login
 Content-Type: application/json
 Accept: application/json
 
@@ -7,3 +7,11 @@ Accept: application/json
     "account_id": "rkojima0213@gmail.com",
     "password": "password"
 }
+
+> {%
+    client.test("save access token", function() {
+        if (response.status === 200) {
+            client.global.set('auth_token', response.body.data.token);
+        }
+    });
+%}

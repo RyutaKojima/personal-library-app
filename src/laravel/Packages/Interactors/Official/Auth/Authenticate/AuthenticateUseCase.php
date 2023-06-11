@@ -30,6 +30,10 @@ final class AuthenticateUseCase implements AuthenticateUseCaseInterface
         $accountId = $this->authTokenRepository->getAccountIdByToken($input->token);
 
         try {
+            if (!$accountId) {
+                throw new DataNotFoundException();
+            }
+
             $user = $this->userRepository->findByAccountId($accountId);
 
             return new AuthenticateOutput(
