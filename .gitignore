@@ -1,6 +1,10 @@
 /.idea/dictionaries/
 /.idea/inspectionProfiles/Project_Default.xml
 
+/.idea/php.xml
+/.idea/php-test-framework.xml
+/.idea/remote-mappings.xml
+
 /.idea/active-tab-highlighter.xml
 /.idea/sonarlint/
 /.idea/phpunit.xml
