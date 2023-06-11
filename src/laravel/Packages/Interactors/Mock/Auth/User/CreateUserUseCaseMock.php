@@ -17,7 +17,6 @@ final class CreateUserUseCaseMock implements CreateUserUseCaseInterface
             1,
             '',
             '',
-            '',
         );
     }
 }

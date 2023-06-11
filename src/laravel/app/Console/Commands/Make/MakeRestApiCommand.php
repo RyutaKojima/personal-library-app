@@ -33,7 +33,7 @@ final class MakeRestApiCommand extends Command
             'name' => $resourceName,
         ]);
 
-        $this->call('make:test', [
+        $this->call('app:make-test', [
             'name' => "Controller/{$controllerName}Test",
         ]);
 

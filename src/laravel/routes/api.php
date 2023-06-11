@@ -25,4 +25,5 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::post('signup', App\Http\Controllers\User\CreateUserController::class);
+    Route::get('me', App\Http\Controllers\User\GetUserMeController::class);
 });
