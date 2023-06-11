@@ -19,7 +19,7 @@ final class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'account_id' => ['required', 'string'],
+            'account_id' => ['required', 'string', 'email:rfc,strict,dns,spoof'],
             'password' => ['required', 'string'],
             'name' => ['required', 'string'],
         ];

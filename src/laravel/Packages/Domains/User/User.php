@@ -8,7 +8,7 @@ final class User
 {
     public function __construct(
         public readonly string $accountId,
-        public readonly string $password,
+        public readonly Password $password,
         public readonly string $name,
     ) {
     }

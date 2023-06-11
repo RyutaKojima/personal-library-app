@@ -7,6 +7,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Resources\User\CreateUserResource;
+use Packages\Domains\User\Password;
 use Packages\UseCases\User\Create\CreateUserInput;
 use Packages\UseCases\User\Create\CreateUserUseCaseInterface;
 
@@ -25,12 +26,12 @@ final class CreateUserController extends Controller
 
         $createUserInput = new CreateUserInput(
             $accountId->toString(),
-            $password->toString(),
+            Password::makeByPhrase($password->toString()),
             $name->toString(),
         );
 
-        $useCaseResponse = $this->useCase->handle($createUserInput);
+        $output = $this->useCase->handle($createUserInput);
 
-        return CreateUserResource::make($useCaseResponse);
+        return CreateUserResource::make($output);
     }
 }
