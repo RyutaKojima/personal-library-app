@@ -1,0 +1,14 @@
+version: '3'
+services:
+    app:
+        volumes:
+            - 'mutagen-volume:/var/www/html'
+volumes:
+    mutagen-volume:
+
+x-mutagen:
+    sync:
+        mutagen-volume:
+            mode: "two-way-resolved"
+            alpha: "."
+            beta: "volume://mutagen-volume"
