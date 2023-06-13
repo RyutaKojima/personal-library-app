@@ -1,6 +1,6 @@
 # personal-library-app
 
-.envファイル作成
+### .envファイル作成
 
 ```shell
 echo "Laravelディレクトリに移動"
@@ -12,7 +12,7 @@ cat .env.example \
 | sed s/WWWGROUP=/WWWGROUP=$(id -g)/ > .env
 ```
 
-既存アプリケーションでComposer依存関係のインストール
+### 既存アプリケーションでComposer依存関係のインストール
 
 ```shell
 docker run --rm \
@@ -23,14 +23,25 @@ docker run --rm \
     composer install --ignore-platform-reqs
 ```
 
-Docker起動
+### Docker起動
+
+※ `docker-compose`を使う場合
 
 ```shell
 cd src/laravel
+cp docker-compose.override.yml.example docker-compose.override.yml
 docker-compose up -d
 ```
 
-composerインストール
+※ `mutagen-compose`を使う場合
+
+```shell
+cd src/laravel
+cp docker-compose.override.yml.mutagen.example docker-compose.override.yml
+mutagen-compose up -d
+```
+
+### composerインストール
 
 ```shell
 cd src/laravel
@@ -42,14 +53,14 @@ cd src/laravel
 docker-compose exec app php artisan key:generate
 ```
 
-マイグレーション実行
+### マイグレーション実行
 
 ```shell
 cd src/laravel
 docker-compose exec app php artisan migrate
 ```
 
-ide-helperファイルを作成
+### ide-helperファイルを作成
 
 ```shell
 cd src/laravel
