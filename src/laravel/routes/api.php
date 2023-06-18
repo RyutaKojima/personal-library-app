@@ -27,3 +27,9 @@ Route::prefix('user')->group(function () {
     Route::post('signup', App\Http\Controllers\User\CreateUserController::class);
     Route::get('me', App\Http\Controllers\User\GetUserMeController::class);
 });
+
+Route::prefix('library')->group(function () {
+    Route::post('create', App\Http\Controllers\Library\CreateLibraryController::class);
+    Route::post('join', static fn() => null);
+    Route::post('archive', static fn() => null);
+});
