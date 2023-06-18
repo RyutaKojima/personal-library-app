@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Controller\User;
+namespace Tests\Feature\Controller\Library;
 
 use Packages\Exceptions\DataNotFoundException;
 use Tests\FeatureUtil\Authenticate;
 use Tests\TestCase;
 
-final class GetUserMeControllerTest extends TestCase
+final class CreateLibraryControllerTest extends TestCase
 {
     /**
      * @throws DataNotFoundException
@@ -26,16 +26,17 @@ final class GetUserMeControllerTest extends TestCase
     public function testHttpSuccess(): void
     {
         $response = $this
-            ->getJson(
-                '/api/user/me',
-            );
+            ->postJson('/api/library/create', [
+                'name' => 'セイルボート図書館(広島)',
+                'identification_code' => 'sailboat-hiroshima',
+            ]);
 
         $response
             ->assertStatus(200)
             ->assertExactJson([
                 'data' => [
-                    'accountId' => Authenticate::TEST_ACCOUNT_ID,
-                    'name' => Authenticate::TEST_NAME,
+                    'name' => 'セイルボート図書館(広島)',
+                    'identificationCode' => 'sailboat-hiroshima',
                 ],
             ]);
     }

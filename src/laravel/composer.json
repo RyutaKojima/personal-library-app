@@ -69,6 +69,11 @@
             "@php artisan config:clear",
             "@php artisan migrate:fresh --env=testing --seed",
             "@php artisan test"
+        ],
+        "check": [
+            "composer lint",
+            "composer stan",
+            "composer test"
         ]
     },
     "extra": {

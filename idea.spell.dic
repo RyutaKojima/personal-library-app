@@ -2,6 +2,7 @@
 # General words...
 dont
 EHLO
+Interactor
 
 # Laravel words...
 Laravel
