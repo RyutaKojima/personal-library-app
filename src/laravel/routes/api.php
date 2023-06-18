@@ -26,10 +26,18 @@ Route::prefix('auth')->group(function () {
 Route::prefix('user')->group(function () {
     Route::post('signup', App\Http\Controllers\User\CreateUserController::class);
     Route::get('me', App\Http\Controllers\User\GetUserMeController::class);
+    Route::post('attach-role', static fn() => null);
 });
 
 Route::prefix('library')->group(function () {
     Route::post('create', App\Http\Controllers\Library\CreateLibraryController::class);
     Route::post('join', static fn() => null);
     Route::post('archive', static fn() => null);
+});
+
+Route::prefix('book')->group(function () {
+    Route::post('register', static fn() => null);
+    Route::post('borrow', static fn() => null);
+    Route::post('return', static fn() => null);
+    Route::post('missing', static fn() => null);
 });
