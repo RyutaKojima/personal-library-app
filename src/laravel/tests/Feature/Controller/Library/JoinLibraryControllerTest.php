@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace {{ namespace }};
+namespace Tests\Feature\Controller\Library;
 
+use App\Models\Library;
 use Packages\Exceptions\DataNotFoundException;
 use Tests\FeatureUtil\Authenticate;
 use Tests\TestCase;
 
-final class {{ class }} extends TestCase
+final class JoinLibraryControllerTest extends TestCase
 {
     /**
      * @throws DataNotFoundException
@@ -24,9 +25,18 @@ final class {{ class }} extends TestCase
 
     public function testHttpSuccess(): void
     {
+        Library::factory()
+            ->make([
+                'identification_code' => 'library_code',
+            ])
+            ->save();
+
         $response = $this
-            ->getJson(
-                uri: '/api/xxx',
+            ->postJson(
+                uri: '/api/library/join',
+                data: [
+                    'identification_code' => 'library_code',
+                ],
             );
 
         $response
