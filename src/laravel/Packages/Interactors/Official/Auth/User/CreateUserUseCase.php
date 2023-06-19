@@ -25,12 +25,12 @@ final class CreateUserUseCase implements CreateUserUseCaseInterface
             $input->name,
         );
 
-        $id = $this->createUserRepository->save($user);
+        $savedUser = $this->createUserRepository->save($user);
 
         return new CreateUserOutput(
-            id: $id,
-            accountId: $user->accountId,
-            name: $user->name,
+            id: $savedUser->id ?? 0,
+            accountId: $savedUser->accountId,
+            name: $savedUser->name,
         );
     }
 }

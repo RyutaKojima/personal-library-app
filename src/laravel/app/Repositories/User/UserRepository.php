@@ -26,10 +26,11 @@ final class UserRepository implements UserRepositoryInterface
             accountId: $userEloquent->email,
             password: Password::makeByHash($userEloquent->password),
             name: $userEloquent->name,
+            id: $userEloquent->id,
         );
     }
 
-    public function save(User $user): int
+    public function save(User $user): User
     {
         $userEloquent = new UserEloquent();
 
@@ -41,6 +42,6 @@ final class UserRepository implements UserRepositoryInterface
 
         $userEloquent->save();
 
-        return $userEloquent->id;
+        return $user->setId($userEloquent->id);
     }
 }

@@ -13,5 +13,5 @@ interface UserRepositoryInterface
      */
     public function findByAccountId(string $accountId): User;
 
-    public function save(User $user): int;
+    public function save(User $user): User;
 }

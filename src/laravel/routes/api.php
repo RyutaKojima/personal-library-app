@@ -31,7 +31,7 @@ Route::prefix('user')->group(function () {
 
 Route::prefix('library')->group(function () {
     Route::post('create', App\Http\Controllers\Library\CreateLibraryController::class);
-    Route::post('join', static fn() => null);
+    Route::post('join', App\Http\Controllers\Library\JoinLibraryController::class);
     Route::post('archive', static fn() => null);
 });
 

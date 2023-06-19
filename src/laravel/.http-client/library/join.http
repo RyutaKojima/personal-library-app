@@ -1,0 +1,9 @@
+### 図書館設立（作成）
+POST {{protocol}}{{host}}/api/library/join
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "identification_code": "lion_library"
+}

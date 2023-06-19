@@ -8,6 +8,14 @@ use Packages\Domains\User\User;
 
 final class LibraryRepositoryMock implements LibraryRepositoryInterface
 {
+    public function fetchFromIdentificationCode(string $identificationCode): Library
+    {
+        return new Library(
+            id: 1,
+            name: 'mock-library',
+            identificationCode: $identificationCode,
+        );
+    }
     public function exists(Library $library): bool
     {
         return false;
@@ -21,5 +29,10 @@ final class LibraryRepositoryMock implements LibraryRepositoryInterface
             name: $library->name,
             identificationCode: $library->identificationCode,
         );
+    }
+
+    public function joinUser(User $user, Library $library): Library
+    {
+        return $library;
     }
 }

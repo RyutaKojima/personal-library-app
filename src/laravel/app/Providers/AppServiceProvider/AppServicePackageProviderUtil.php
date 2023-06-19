@@ -34,6 +34,11 @@ final class AppServicePackageProviderUtil
             \Packages\Interactors\Official\Library\CreateLibrary\CreateLibraryUseCase::class,
             \Packages\Interactors\Mock\Library\CreateLibrary\CreateLibraryUseCaseMock::class,
         ],
+        [
+            \Packages\UseCases\Library\Join\JoinLibraryUseCaseInterface::class,
+            \Packages\Interactors\Official\Library\Join\JoinLibraryUseCase::class,
+            '',
+        ],
     ];
 
     private const BIND_REPOSITORIES = [
