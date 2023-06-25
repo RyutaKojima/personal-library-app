@@ -36,8 +36,8 @@ Route::prefix('library')->group(function () {
 });
 
 Route::prefix('book')->group(function () {
-    Route::post('register', static fn() => null);
-    Route::post('borrow', static fn() => null);
-    Route::post('return', static fn() => null);
-    Route::post('missing', static fn() => null);
+    Route::post('register', App\Http\Controllers\Book\RegisterBookController::class);
+    Route::post('borrow', App\Http\Controllers\Book\BorrowBookController::class);
+    Route::post('return', App\Http\Controllers\Book\ReturnBookController::class);
+    Route::post('missing', App\Http\Controllers\Book\MissingBookController::class);
 });
