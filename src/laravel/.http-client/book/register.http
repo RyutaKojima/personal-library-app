@@ -5,4 +5,9 @@ Accept: application/json
 Authorization: Bearer {{auth_token}}
 
 {
+  "libraryCode": "lion_library",
+  "title": "はらぺこあおむし",
+  "isbn": "978-4033280103",
+  "author": "エリック・カール",
+  "publisher": ""
 }

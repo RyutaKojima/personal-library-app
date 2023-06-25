@@ -19,6 +19,11 @@ final class RegisterBookRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'libraryCode' => ['required', 'string'],
+            'title' => ['required', 'string'],
+            'isbn' => ['required', 'string'],
+            'author' => ['present', 'string', 'nullable'],
+            'publisher' => ['present', 'string', 'nullable'],
         ];
     }
 
@@ -28,6 +33,11 @@ final class RegisterBookRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'libraryCode' => '図書館識別コード',
+            'title' => '題名',
+            'isbn' => 'ISBN',
+            'author' => '著者名',
+            'publisher' => '出版社名',
         ];
     }
 }

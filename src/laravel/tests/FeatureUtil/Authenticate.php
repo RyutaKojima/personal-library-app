@@ -18,7 +18,10 @@ final class Authenticate
     public const TEST_PASSWORD = 'password';
     public const TEST_NAME = '山田太郎';
 
-    public static function makeDummyUser(Application $app): void
+    /**
+     * @throws DataNotFoundException
+     */
+    public static function makeDummyUser(Application $app): User
     {
         $userRepository = $app->make(UserRepository::class);
 
@@ -29,6 +32,8 @@ final class Authenticate
                 self::TEST_NAME,
             )
         );
+
+        return $userRepository->findByAccountId(self::TEST_ACCOUNT_ID);
     }
 
     /**

@@ -6,7 +6,6 @@ namespace App\Repositories\Library;
 
 use App\Models\Library as LibraryEloquent;
 use App\Models\Member;
-use App\Models\User as UserEloquent;
 use Packages\Domains\Library\Library;
 use Packages\Domains\Library\LibraryRepositoryInterface;
 use Packages\Domains\Library\MemberRoleEnum;

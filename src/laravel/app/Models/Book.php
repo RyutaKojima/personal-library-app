@@ -6,8 +6,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class Book extends Model
 {
@@ -23,11 +23,11 @@ final class Book extends Model
     /**
      * リレーション: 書籍
      *
-     * @return BelongsTo<BookStock, Book>
+     * @return HasOne
      */
-    public function bookStock(): BelongsTo
+    public function bookStock(): HasOne
     {
-        return $this->belongsTo(BookStock::class);
+        return $this->hasOne(BookStock::class);
     }
 
     /**

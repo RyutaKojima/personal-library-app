@@ -39,6 +39,11 @@ final class AppServicePackageProviderUtil
             \Packages\Interactors\Official\Library\Join\JoinLibraryUseCase::class,
             '',
         ],
+        [
+            \Packages\UseCases\Book\Register\RegisterBookUseCaseInterface::class,
+            \Packages\Interactors\Official\Book\RegisterBook\RegisterBookUseCase::class,
+            '',
+        ],
     ];
 
     private const BIND_REPOSITORIES = [
@@ -56,6 +61,11 @@ final class AppServicePackageProviderUtil
             \Packages\Domains\Library\LibraryRepositoryInterface::class,
             \App\Repositories\Library\LibraryRepository::class,
             \Packages\Domains\Library\LibraryRepositoryMock::class,
+        ],
+        [
+            \Packages\Domains\Book\BookRepositoryInterface::class,
+            \App\Repositories\Book\BookRepository::class,
+            '',
         ],
     ];
 
