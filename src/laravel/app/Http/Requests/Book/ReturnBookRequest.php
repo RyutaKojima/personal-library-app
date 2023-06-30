@@ -19,6 +19,8 @@ final class ReturnBookRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'libraryCode' => ['required', 'string'],
+            'isbn' => ['required', 'string'],
         ];
     }
 
@@ -28,6 +30,8 @@ final class ReturnBookRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'libraryCode' => '図書館識別コード',
+            'isbn' => 'ISBN',
         ];
     }
 }

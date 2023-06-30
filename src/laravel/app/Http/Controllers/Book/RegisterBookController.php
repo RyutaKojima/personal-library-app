@@ -8,9 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Book\RegisterBookRequest;
 use App\Http\Resources\Book\RegisterBookResource;
 use Illuminate\Support\Facades\DB;
-use Packages\Domains\Auth\UnAuthenticateException;
-use Packages\UseCases\Auth\Authenticate\AuthenticateInput;
-use Packages\UseCases\Auth\Authenticate\AuthenticateUseCaseInterface;
+use Packages\Domains\User\User;
 use Packages\UseCases\Book\Register\RegisterBookInput;
 use Packages\UseCases\Book\Register\RegisterBookUseCaseInterface;
 use Throwable;
@@ -18,29 +16,31 @@ use Throwable;
 final class RegisterBookController extends Controller
 {
     public function __construct(
-        private readonly AuthenticateUseCaseInterface $authenticateUseCase,
         private readonly RegisterBookUseCaseInterface $useCase,
     ) {
     }
 
     /**
      * @throws Throwable
-     * @throws UnAuthenticateException
      */
     public function __invoke(RegisterBookRequest $request): RegisterBookResource
     {
-        $token = (string)$request->bearerToken();
-        $authOutput = $this->authenticateUseCase->handle(
-            new AuthenticateInput($token),
-        );
+        /** @var User $user */
+        $user = $request->user();
+
+        /** @var string $author */
+        $author = $request->validated('author') ?? '';
+
+        /** @var string $publisher */
+        $publisher = $request->validated('publisher') ?? '';
 
         $input = new RegisterBookInput(
-            user: $authOutput->user,
-            libraryCode: $request->validated('libraryCode'),
-            title: $request->validated('title'),
-            isbn: $request->validated('isbn'),
-            author: $request->validated('author') ?? '',
-            publisher: $request->validated('publisher') ?? '',
+            user: $user,
+            libraryCode: $request->string('libraryCode')->toString(),
+            title: $request->string('title')->toString(),
+            isbn: $request->string('isbn')->toString(),
+            author: $author,
+            publisher: $publisher,
         );
 
         $output = DB::transaction(function () use ($input) {

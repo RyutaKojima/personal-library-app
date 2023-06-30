@@ -6,9 +6,10 @@ namespace App\Http\Resources\Book;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Packages\UseCases\Book\Borrow\BorrowBookOutput;
 
 /**
- * @mixin {{Models}}
+ * @mixin BorrowBookOutput
  */
 final class BorrowBookResource extends JsonResource
 {
@@ -19,6 +20,8 @@ final class BorrowBookResource extends JsonResource
     // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+
+        ];
     }
 }

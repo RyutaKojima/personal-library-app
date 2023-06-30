@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Tests\Feature\Controller\Book;
 
 use Packages\Exceptions\DataNotFoundException;
-use Tests\FeatureUtil\Authenticate;
-use Tests\TestCase;
+use Packages\UseCases\Book\Register\RegisterBookInput;
+use Packages\UseCases\Book\Register\RegisterBookUseCaseInterface;
+use Packages\UseCases\Library\Create\CreateLibraryInput;
+use Packages\UseCases\Library\Create\CreateLibraryUseCaseInterface;
+use Tests\AuthorizedTestCase;
 
-final class MissingBookControllerTest extends TestCase
+final class MissingBookControllerTest extends AuthorizedTestCase
 {
     /**
      * @throws DataNotFoundException
@@ -17,16 +20,37 @@ final class MissingBookControllerTest extends TestCase
     {
         parent::setUp();
 
-        Authenticate::makeDummyUser($this->app);
-        $this->token = Authenticate::login($this->app);
-        $this->withHeader('Authorization', "Bearer {$this->token}");
+        $createLibraryUseCase = $this->app->make(CreateLibraryUseCaseInterface::class);
+        $createLibraryUseCase->handle(
+            new CreateLibraryInput(
+                user: $this->user,
+                name: 'sample_library',
+                identificationCode: 'sample_library',
+            )
+        );
+
+        $registerBookUseCase = $this->app->make(RegisterBookUseCaseInterface::class);
+        $registerBookUseCase->handle(
+            new RegisterBookInput(
+                user: $this->user,
+                libraryCode: 'sample_library',
+                title: 'はらぺこあおむし',
+                isbn: '978-4033280103',
+                author: '',
+                publisher: '',
+            )
+        );
     }
 
     public function testHttpSuccess(): void
     {
         $response = $this
-            ->getJson(
-                uri: '/api/xxx',
+            ->postJson(
+                uri: '/api/book/missing',
+                data: [
+                    'libraryCode' => 'sample_library',
+                    'isbn' => '978-4033280103',
+                ],
             );
 
         $response

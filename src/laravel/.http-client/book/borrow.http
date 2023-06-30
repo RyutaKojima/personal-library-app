@@ -1,0 +1,10 @@
+### 図書の貸出
+POST {{protocol}}{{host}}/api/book/borrow
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "libraryCode": "lion_library",
+  "isbn": "978-4033280103"
+}

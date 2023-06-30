@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Packages\Domains\Book;
 
 use Packages\Exceptions\InvalidArgumentException;
@@ -57,11 +56,13 @@ final class Isbn
     ) {
         // 978-3-16-148410-0
         // 978-4033280103
-        if (preg_match(
-            pattern: '/(\d{3})-?(\d)-?(\d{2})-?(\d{6})-?(\d)/',
-            subject: $isbn,
-            matches: $matches,
-        )) {
+        if (
+            preg_match(
+                pattern: '/(\d{3})-?(\d)-?(\d{2})-?(\d{6})-?(\d)/',
+                subject: $isbn,
+                matches: $matches,
+            )
+        ) {
             \Log::debug('match', $matches);
 
             $this->prefixSymbol = $matches[1];

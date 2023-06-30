@@ -30,6 +30,10 @@ final class RegisterBookUseCase implements RegisterBookUseCaseInterface
     {
         $library = $this->libraryRepository->fetchFromIdentificationCode($input->libraryCode);
 
+        if ($library->id === null) {
+            throw new DataNotFoundException();
+        }
+
         $book = $this->bookRepository->register(
             new Book(
                 id: null,

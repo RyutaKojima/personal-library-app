@@ -6,9 +6,10 @@ namespace App\Http\Resources\Book;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Packages\UseCases\Book\Return\ReturnBookOutput;
 
 /**
- * @mixin {{Models}}
+ * @mixin ReturnBookOutput
  */
 final class ReturnBookResource extends JsonResource
 {
@@ -19,6 +20,6 @@ final class ReturnBookResource extends JsonResource
     // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [];
     }
 }

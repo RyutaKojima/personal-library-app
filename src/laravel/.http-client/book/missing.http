@@ -1,0 +1,10 @@
+### 図書の紛失
+POST {{protocol}}{{host}}/api/book/missing
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "libraryCode": "lion_library",
+  "isbn": "978-4033280103"
+}
