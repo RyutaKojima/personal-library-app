@@ -1,0 +1,10 @@
+### 貸出図書の返却
+POST {{protocol}}{{host}}/api/book/return
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "libraryCode": "lion_library",
+  "isbn": "978-4033280103"
+}

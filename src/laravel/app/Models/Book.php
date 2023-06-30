@@ -23,7 +23,7 @@ final class Book extends Model
     /**
      * リレーション: 書籍
      *
-     * @return HasOne
+     * @return HasOne<BookStock>
      */
     public function bookStock(): HasOne
     {

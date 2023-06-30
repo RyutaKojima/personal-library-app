@@ -8,6 +8,7 @@ use App\Models\Book as BookEloquent;
 use Packages\Domains\Book\Book;
 use Packages\Domains\Book\BookRepositoryInterface;
 use Packages\Domains\Book\Isbn;
+use Packages\Domains\Library\Library;
 use Packages\Exceptions\DataNotFoundException;
 use Packages\Exceptions\InvalidArgumentException;
 
@@ -16,17 +17,23 @@ final class BookRepository implements BookRepositoryInterface
     /**
      * リポジトリ内に限定した共通処理
      *
+     * @param int $libraryId
      * @param Isbn $isbn
      * @return BookEloquent
      * @throws DataNotFoundException
      */
-    private function find(Isbn $isbn): BookEloquent
+    private function find(int $libraryId, Isbn $isbn): BookEloquent
     {
         $bookEloquent = BookEloquent::where(
-            column: 'isbn',
+            column: 'library_id',
             operator: '=',
-            value: $isbn->getNoHyphen(),
-        )->first();
+            value: $libraryId,
+        )
+            ->where(
+                column: 'isbn',
+                operator: '=',
+                value: $isbn->getNoHyphen(),
+            )->first();
 
         if ($bookEloquent === null) {
             throw new DataNotFoundException();
@@ -42,7 +49,7 @@ final class BookRepository implements BookRepositoryInterface
     public function exists(Book $book): bool
     {
         try {
-            $this->find($book->isbn);
+            $this->find($book->libraryId, $book->isbn);
 
             return true;
         } catch (DataNotFoundException) {
@@ -51,13 +58,20 @@ final class BookRepository implements BookRepositoryInterface
     }
 
     /**
+     * @param Library $library
      * @param Isbn $isbn
      * @return Book
      * @throws DataNotFoundException
      */
-    public function fetchFromIsbn(Isbn $isbn): Book
-    {
-        $bookEloquent = $this->find($isbn);
+    public function fetchFromIsbn(
+        Library $library,
+        Isbn $isbn,
+    ): Book {
+        if ($library->id === null) {
+            throw new DataNotFoundException();
+        }
+
+        $bookEloquent = $this->find($library->id, $isbn);
 
         return new Book(
             id: $bookEloquent->id,
@@ -79,30 +93,34 @@ final class BookRepository implements BookRepositoryInterface
     public function register(Book $book): Book
     {
         try {
-            $bookEloquent = $this->find($book->isbn);
+            $bookEloquent = $this->find($book->libraryId, $book->isbn);
 
-            $bookEloquent
-                ->bookStock
+            $boolStockEloquent = $bookEloquent->bookStock;
+            if ($boolStockEloquent === null) {
+                throw new DataNotFoundException();
+            }
+
+            $boolStockEloquent
                 ->fill([
-                    'max_stocks' => $bookEloquent->bookStock->max_stocks + 1,
-                    'current_stocks' => $bookEloquent->bookStock->current_stocks + 1,
+                    'max_stocks' => $boolStockEloquent->max_stocks + 1,
+                    'current_stocks' => $boolStockEloquent->current_stocks + 1,
                 ])
                 ->save();
 
             $bookEloquent->refresh();
         } catch (DataNotFoundException) {
-            /** @var BookEloquent $bookEloquent */
-            $bookEloquent = BookEloquent::make([
+            $bookEloquent = new BookEloquent([
                 'title' => $book->title,
                 'isbn' => $book->isbn->getNoHyphen(),
                 'author' => $book->author,
                 'publisher' => $book->publisher,
-            ])
-                ->forceFill([
-                    'library_id' => $book->libraryId,
-                ]);
+            ]);
+            $bookEloquent->forceFill([
+                'library_id' => $book->libraryId,
+            ]);
             $bookEloquent->save();
 
+            /** @var BookEloquent $bookEloquent */
             $bookEloquent = $bookEloquent->fresh();
 
             $bookEloquent->bookStock()->create([

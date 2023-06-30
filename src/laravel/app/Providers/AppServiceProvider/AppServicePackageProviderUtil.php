@@ -44,6 +44,21 @@ final class AppServicePackageProviderUtil
             \Packages\Interactors\Official\Book\RegisterBook\RegisterBookUseCase::class,
             '',
         ],
+        [
+            \Packages\UseCases\Book\Borrow\BorrowBookUseCaseInterface::class,
+            \Packages\Interactors\Official\Book\BorrowBook\BorrowBookUseCase::class,
+            '',
+        ],
+        [
+            \Packages\UseCases\Book\Return\ReturnBookUseCaseInterface::class,
+            \Packages\Interactors\Official\Book\ReturnBook\ReturnBookUseCase::class,
+            '',
+        ],
+        [
+            \Packages\UseCases\Book\Missing\MissingBookUseCaseInterface::class,
+            \Packages\Interactors\Official\Book\MissingBook\MissingBookUseCase::class,
+            '',
+        ],
     ];
 
     private const BIND_REPOSITORIES = [
