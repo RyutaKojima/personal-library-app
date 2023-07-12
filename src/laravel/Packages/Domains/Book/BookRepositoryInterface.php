@@ -13,4 +13,6 @@ interface BookRepositoryInterface
     public function fetchFromIsbn(Library $library, Isbn $isbn): Book;
 
     public function register(Book $book): Book;
+
+    public function save(Book $book): Book;
 }

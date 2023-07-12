@@ -1,0 +1,65 @@
+### サインアップ（アカウント登録）
+POST {{protocol}}{{host}}/api/user/signup
+Content-Type: application/json
+Accept: application/json
+
+{
+    "account_id": "rkojima0213@gmail.com",
+    "password": "password",
+    "name": "某氏"
+}
+
+
+### login
+POST {{protocol}}{{host}}/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "account_id": "rkojima0213@gmail.com",
+    "password": "password"
+}
+
+> {%
+    client.test("save access token", function() {
+        if (response.status === 200) {
+            client.global.set('auth_token', response.body.data.token);
+        }
+    });
+%}
+
+### 図書館設立（作成）
+POST {{protocol}}{{host}}/api/library/create
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "name": "がおがお図書館",
+    "identification_code": "lion_library"
+}
+
+### 図書の登録
+POST {{protocol}}{{host}}/api/book/register
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "libraryCode": "lion_library",
+    "title": "はらぺこあおむし",
+    "isbn": "978-4033280103",
+    "author": "エリック・カール",
+    "publisher": ""
+}
+
+### 図書の貸出
+POST {{protocol}}{{host}}/api/book/borrow
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "libraryCode": "lion_library",
+    "isbn": "978-4033280103"
+}

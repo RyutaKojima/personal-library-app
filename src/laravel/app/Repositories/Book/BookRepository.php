@@ -140,4 +140,31 @@ final class BookRepository implements BookRepositoryInterface
             maxStocks: $bookEloquent->bookStock?->max_stocks ?? 0,
         );
     }
+
+    /**
+     * @throws DataNotFoundException
+     */
+    public function save(Book $book): Book
+    {
+        $bookEloquent = $this->find($book->libraryId, $book->isbn);
+
+        $bookEloquent
+            ->fill([
+                'title' => $book->title,
+                'isbn' => $book->isbn->getNoHyphen(),
+                'author' => $book->author,
+                'publisher' => $book->publisher,
+            ])
+            ->save();
+
+        $bookEloquent
+            ->bookStock
+            ->fill([
+                'max_stocks' => $book->getMaxStocks(),
+                'current_stocks' => $book->getCurrentStocks(),
+            ])
+            ->save();
+
+        return $book;
+    }
 }

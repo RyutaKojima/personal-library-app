@@ -1,4 +1,4 @@
-### Send POST request with json body
+### サインアップ（アカウント登録）
 POST {{protocol}}{{host}}/api/user/signup
 Content-Type: application/json
 Accept: application/json

@@ -63,8 +63,6 @@ final class Isbn
                 matches: $matches,
             )
         ) {
-            \Log::debug('match', $matches);
-
             $this->prefixSymbol = $matches[1];
             $this->groupSymbol = $matches[2];
             $this->publisherSymbol = $matches[3];

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('borrower_id')->constrained('users')->comment('FK: users, 借りたユーザーのID');
             $table->foreignId('book_id')->constrained()->comment('FK: books');
-            $table->timestamp('borrowed_at')->comment('貸出日時');
-            $table->timestamp('returned_at')->comment('返却日時');
+            $table->timestamp('borrowed_at')->nullable()->comment('貸出日時');
+            $table->timestamp('returned_at')->nullable()->comment('返却日時');
             $table->enum('status', ['borrowed', 'returned', 'missing'])->comment('貸出状態');
             $table->timestamps();
 

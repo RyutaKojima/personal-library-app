@@ -82,6 +82,11 @@ final class AppServicePackageProviderUtil
             \App\Repositories\Book\BookRepository::class,
             '',
         ],
+        [
+            \Packages\Domains\Book\BorrowedHistoryRepositoryInterface::class,
+            \App\Repositories\Book\BorrowedHistoryRepository::class,
+            '',
+        ],
     ];
 
     public function registerForOfficial(Application $app): void
