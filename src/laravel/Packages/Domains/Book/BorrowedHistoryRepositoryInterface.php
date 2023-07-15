@@ -8,5 +8,5 @@ use Packages\Domains\User\User;
 
 interface BorrowedHistoryRepositoryInterface
 {
-    public function recordBorrow(User $user, Book $book);
+    public function recordBorrow(User $user, Book $book): void;
 }

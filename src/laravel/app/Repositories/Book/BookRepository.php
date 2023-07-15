@@ -159,11 +159,11 @@ final class BookRepository implements BookRepositoryInterface
 
         $bookEloquent
             ->bookStock
-            ->fill([
+            ?->fill([
                 'max_stocks' => $book->getMaxStocks(),
                 'current_stocks' => $book->getCurrentStocks(),
             ])
-            ->save();
+            ?->save();
 
         return $book;
     }

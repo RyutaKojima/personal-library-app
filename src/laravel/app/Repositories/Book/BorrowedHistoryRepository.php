@@ -14,16 +14,17 @@ final class BorrowedHistoryRepository implements BorrowedHistoryRepositoryInterf
 {
     public function recordBorrow(User $user, Book $book): void
     {
-        $borrowedHistory = BorrowedHistory::make([
+        $borrowedHistory = new BorrowedHistory([
             'borrowed_at' => CarbonImmutable::now(),
             'returned_at' => null,
             'status' => 'borrowed',
-        ])
+        ]);
+
+        $borrowedHistory
             ->forceFill([
                 'borrower_id' => $user->id,
                 'book_id' => $book->id,
-            ]);
-
-        $borrowedHistory->save();
+            ])
+            ->save();
     }
 }

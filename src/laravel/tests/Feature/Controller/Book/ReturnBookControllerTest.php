@@ -52,10 +52,6 @@ final class ReturnBookControllerTest extends AuthorizedTestCase
                 isbn: '978-4033280103',
             )
         );
-
-        $bookStockEloquent = BookStock::first();
-        $bookStockEloquent->current_stocks--;
-        $bookStockEloquent->save();
     }
 
     public function testHttpSuccess(): void
