@@ -6703,16 +6703,16 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v4.17.3",
+            "version": "v4.17.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "17a420d0121b03ea90648dd4484b62abe6d3e261"
+                "reference": "3cbe70e900a9d070491149f2615d5a4a5b51d4c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/17a420d0121b03ea90648dd4484b62abe6d3e261",
-                "reference": "17a420d0121b03ea90648dd4484b62abe6d3e261",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/3cbe70e900a9d070491149f2615d5a4a5b51d4c6",
+                "reference": "3cbe70e900a9d070491149f2615d5a4a5b51d4c6",
                 "shasum": ""
             },
             "require": {
@@ -6768,9 +6768,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/telescope/issues",
-                "source": "https://github.com/laravel/telescope/tree/v4.17.3"
+                "source": "https://github.com/laravel/telescope/tree/v4.17.4"
             },
-            "time": "2023-12-11T22:00:12+00:00"
+            "time": "2024-01-22T16:15:52+00:00"
         },
         {
             "name": "mockery/mockery",
